@@ -4,7 +4,7 @@ Para trabajar con audio en Unity es necesario contar en la escena con un emisor 
 
 Para controlar el clip de audio se utilizan algunos métodos de la clase AudioSource.
 
-En esta guía te propondré algunos experimentos con audio en Unity que tienen como objetivo emplear ese audio como un método de entrada que permita interactuar con la aplicación. ¿Cuál es la idea entonces? La idea será obtener información en tiempo real del audio que está sonando, es decir, vas a extraer algunas features que te permitan modificar parámetros de la aplicación. Al cambiar en tiempo real algunos parámetros en función algunas features del audio el resultado será una aplicación que interactua con el audio. Fácil, ¿Cierto?
+En esta guía te propondré algunos experimentos con audio en Unity que tienen como objetivo emplear ese audio como un método de entrada que permita interactuar con la aplicación. ¿Cuál es la idea entonces? La idea será obtener información en tiempo real del audio que está sonando, es decir, vas a extraer algunas características que te permite modificar parámetros de la aplicación. Al cambiar en tiempo real algunos parámetros en función de algunas características del audio el resultado será una aplicación que interactúa con el audio. Fácil, ¿Cierto?
 
 Ahora lo que te propondré es que mires el API que ofrece Unity en la clase [AudioSource](https://docs.unity3d.com/ScriptReference/AudioSource.html) y analices qué puede servirte para la idea que te planteo.
 
