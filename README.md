@@ -1,1 +1,16 @@
-# UnityAudio
+# Experimentos con audio en Unity
+
+Para trabajar con audio en Unity es necesario contar en la escena con un emisor de audio. En Unity este emisor se puede representar mediante la clase [AudioSource](https://docs.unity3d.com/ScriptReference/AudioSource.html). Por otro lado, también es necesario tener en la escena un componente que escuche ese audio, es decir, un [AudioListener](https://docs.unity3d.com/ScriptReference/AudioListener.html). En Unity es usual que el componente AudioListener lo tenga la cámara principal.
+
+Para controlar el clip de audio se utilizan algunos métodos de la clase AudioSource.
+
+En esta guía te propondré algunos experimentos con audio en Unity que tienen como objetivo emplear ese audio como un método de entrada que permita interactuar con la aplicación. ¿Cuál es la idea entonces? La idea será obtener información en tiempo real del audio que está sonando, es decir, vas a extraer algunas features que te permitan modificar parámetros de la aplicación. Al cambiar en tiempo real algunos parámetros en función algunas features del audio el resultado será una aplicación que interactua con el audio. Fácil, ¿Cierto?
+
+Ahora lo que te propondré es que mires el API que ofrece Unity en la clase [AudioSource](https://docs.unity3d.com/ScriptReference/AudioSource.html) y analices qué puede servirte para la idea que te planteo.
+
+Te dejo por aquí algunas ideas:
+
+* En las Properties de la clase hay algunas interesantes que de hecho podrían modificar el audio en función de otros eventos o interacciones en la aplicación. Por ejemplo, el [pitch](https://docs.unity3d.com/ScriptReference/AudioSource-pitch.html) o el [volume](https://docs.unity3d.com/ScriptReference/AudioSource-volume.html).
+* El método [GetOutputData](https://docs.unity3d.com/ScriptReference/AudioSource.GetOutputData.html) te entrega las muestras de audio que al AudioSource está reproduciendo en ese momento. Mira [este](https://youtu.be/DCrsXBiw33I) y su código [aquí](https://github.com/pctroll/unity3d-music-visualizer/blob/master/Assets/Scripts/Visualize.cs). Aquí la idea es calcular el valor RMS de la señal de audio (es una medida de la "fuerza" de la señal) y con ese valor modificar la altura de un elemento de la interfaz de usuario de la aplicación. Ahora te estarás preguntando qué es eso del valor RMS. Mira, conceptualmente hablando el valor RMS de una señal describe el promedio de la amplitud de la señal. Dale una mirada por fa a [este](https://www.hackaudio.com/digital-signal-processing/amplitude/rms-amplitude/) recurso si quieres profundizar. En ese recurso entenderás por qué es necesario trabajar con el valor RMS de la señal y no simplemente calcular su promedio aritmético ¿Vale?
+* El método [GetSpectrumData](https://docs.unity3d.com/ScriptReference/AudioSource.GetSpectrumData.html) te permite obtener información de las componentes frecuenciales de la señal. ¿Qué es eso? Antes de seguir te recomiendo que busques un pañuelo y te prepares para secar tus lágrimas luego de ver [este](https://youtu.be/h4PTucW3Rm0) emocionantes video. Una vez tengas la información de frecuencia de la señal, puedes utilizarla de muchas maneras, por ejemplo, puedes dividir esa información en bandas como si se tratara de un ecualizador y utilizar lo encontrado en cada banda para modificar diferentes partes del contenido digital de la aplicación. Profe, ¿Qué es eso de las bandas? Te voy a compartir [este](https://youtu.be/4Av788P9stk) video de un play list llamado [Audio Visualization Unity Tutorial](Audio Visualization Unity Tutorial). 
+
