@@ -11,6 +11,10 @@ public class AudioRMS : MonoBehaviour
     public Vector3 scale;
     public float volume = 10.0f;
     private Color color;
+    public float rms;
+    public float rms_max = 0;
+    public float rms_min = 0;
+    private AudioSource _audioSource;
     
     void Start()
     {
@@ -18,38 +22,30 @@ public class AudioRMS : MonoBehaviour
             m_Samples = new float[m_NumSamples];
             scale = m_Level.transform.localScale;
             m_IsOk = true;
-            GetComponent<AudioSource>().Play();
+            _audioSource = GetComponent<AudioSource>();
+            _audioSource.Play();
+            m_Level.GetComponent<Renderer>().material.color = Color.green;
         }
         else
         {
-            Debug.Log("");
+            Debug.Log("Level game object is null");
             GetComponent<AudioSource>().Stop();
         }
             
         
     }
     void Update () {
-        // Continuing proper validation
         if (m_IsOk) {
-            GetComponent<AudioSource>().GetOutputData(m_Samples, 0);
+            _audioSource.GetOutputData(m_Samples, 0);
             float sum = 0.0f;
             for (int i = 0; i < m_NumSamples; i++) {
                 sum = m_Samples[i] * m_Samples[i];
             }
-            float rms = Mathf.Sqrt(sum/m_NumSamples);
-            float rms_clamp = Mathf.Clamp01(rms);
-            scale.y = rms_clamp*volume;
+            rms = Mathf.Sqrt(sum/m_NumSamples);
+            if (rms > rms_max) rms_max = rms;
+            else if (rms < rms_min) rms_min = rms;
+            scale.y = rms*volume;
             m_Level.transform.localScale = scale;
-            color = GetVolumeColor(rms_clamp);
-            m_Level.GetComponent<Renderer>().material.color = color;
         }
-    }
-	
-    Color GetVolumeColor (float volume) {
-        if (volume > 0.7f)
-            return Color.red;
-        if (volume > 0.5f)
-            return Color.yellow;
-        return Color.green;
     }
 }
